@@ -53,7 +53,13 @@ async function displayPokemonList(pokemonListPromise) {
     const pokemonList = await pokemonListPromise
 
     // TODO: forEach currently appends one and one pokemon to the page. We should try to append only once.
-    pokemonList.results.forEach(pokemon => {
+    // NOTE: array methods run in the backgrouind, and thus the order is not guaranteed. To get correct order (we should) use a normal for loop, or a for-of-loop
+    pokemonList.results.forEach(async (pokemon) => {
+        // get additional pokemon data (like image url):
+        //console.log(pokemon)
+        const pokemonExtraData = await getData(pokemon.url)
+        const pokemonImageUrl = pokemonExtraData.sprites.other["official-artwork"].front_default
+
         const wrapperEl = document.createElement("div") // wrapper for each pokemon
         wrapperEl.style = "outline: 2px solid blue;"
         const pokemonName = document.createElement("h3") // for name
@@ -63,6 +69,8 @@ async function displayPokemonList(pokemonListPromise) {
 
         pokemonName.textContent = pokemon.name
         pokemonImage.alt = pokemon.name
+        pokemonImage.style = "width: 40%;"
+        pokemonImage.src = pokemonImageUrl
         // add click event to the wrapperEl
         wrapperEl.addEventListener("click", () => displayPokemonDetails(pokemon))
 
