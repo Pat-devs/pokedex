@@ -25,6 +25,8 @@ const mainContainerEl = document.getElementById("main-container")
 async function displayPokemonDetails(data) {
     
     const pokemonDetails = await getData(data.url)
+    const pokemonImageUrl = pokemonDetails.sprites.other["official-artwork"].front_default
+
     console.log(pokemonDetails)
 
     const wrapperEl = document.createElement("div") // wrapper for each pokemon
@@ -36,6 +38,8 @@ async function displayPokemonDetails(data) {
 
     pokemonName.textContent = data.name
     pokemonImage.alt = data.name
+    pokemonImage.src = pokemonImageUrl
+    pokemonImage.style = "width: 40%;"
 
     // clear the page, and display the pokemon
     mainContainerEl.innerHTML = ""
