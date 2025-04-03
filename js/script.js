@@ -22,19 +22,36 @@ const mainContainerEl = document.getElementById("main-container")
 
 
 // displays details about a pokemon in the mainContainerEl
-function displayPokemon() {
+async function displayPokemonDetails(data) {
+    
+    const pokemonDetails = await getData(data.url)
+    console.log(pokemonDetails)
 
+    const wrapperEl = document.createElement("div") // wrapper for each pokemon
+    wrapperEl.style = "outline: 2px solid blue;"
+    const pokemonName = document.createElement("h3") // for name
+    const pokemonImage = document.createElement("img") // for img
+
+    wrapperEl.append(pokemonName, pokemonImage)
+
+    pokemonName.textContent = data.name
+    pokemonImage.alt = data.name
+
+    // clear the page, and display the pokemon
+    mainContainerEl.innerHTML = ""
+    mainContainerEl.append(wrapperEl)
 }
 
 // displays a list of pokemons in the mainContainerEl
-function displayPokemonList(pokemonList) {
+// function receives a promise object
+async function displayPokemonList(pokemonListPromise) {
 
-    //let onePokemon = pokemonList[0]
+    const pokemonList = await pokemonListPromise
 
-    //mainContainerEl.innerHTML += onePokemon.name
-
-    pokemonList.forEach(pokemon => {
+    // TODO: forEach currently appends one and one pokemon to the page. We should try to append only once.
+    pokemonList.results.forEach(pokemon => {
         const wrapperEl = document.createElement("div") // wrapper for each pokemon
+        wrapperEl.style = "outline: 2px solid blue;"
         const pokemonName = document.createElement("h3") // for name
         const pokemonImage = document.createElement("img") // for img
 
@@ -42,16 +59,18 @@ function displayPokemonList(pokemonList) {
 
         pokemonName.textContent = pokemon.name
         pokemonImage.alt = pokemon.name
+        // add click event to the wrapperEl
+        wrapperEl.addEventListener("click", () => displayPokemonDetails(pokemon))
 
         mainContainerEl.append(wrapperEl)
-        // later on: img tag, list of some stats, click event to pokemom-detail-page???
+        // TODO: img tag, list of some stats, click event to pokemom-detail-page???
     });
 
 
     
 }
 
-let testPokemonList = [
+/* let testPokemonList = [
     {
       name: "bulbasaur",
       url: "https://pokeapi.co/api/v2/pokemon/1/"
@@ -60,7 +79,7 @@ let testPokemonList = [
       name: "ivysaur",
       url: "https://pokeapi.co/api/v2/pokemon/2/"
     }
-]
+] */
 
 
-displayPokemonList(testPokemonList)
+displayPokemonList(getData(apiUrl))
