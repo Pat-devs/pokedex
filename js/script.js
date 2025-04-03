@@ -54,7 +54,11 @@ async function displayPokemonList(pokemonListPromise) {
 
     // TODO: forEach currently appends one and one pokemon to the page. We should try to append only once.
     // NOTE: array methods run in the backgrouind, and thus the order is not guaranteed. To get correct order (we should) use a normal for loop, or a for-of-loop
-    pokemonList.results.forEach(async (pokemon) => {
+    // pokemonList.results.forEach(async (pokemon) => {
+        
+    // });
+
+    for (const pokemon of pokemonList.results) {
         // get additional pokemon data (like image url):
         //console.log(pokemon)
         const pokemonExtraData = await getData(pokemon.url)
@@ -76,7 +80,7 @@ async function displayPokemonList(pokemonListPromise) {
 
         mainContainerEl.append(wrapperEl)
         // TODO: img tag, list of some stats, click event to pokemom-detail-page???
-    });
+    }
 
 
     
