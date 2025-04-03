@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js" defer></script>
     <title>Pokedex</title>
 </head>
 <body>
+    <!-- Navbar -->
+     <nav>
+        <button id="btn-home">Home</button>
+        <button id="btn-prev">Prev</button>
+        <button id="btn-next">Next</button>
+        <!-- Search functionality -->
+        <input  id="search-text" type="text">
+        <button id="btn-search">Search</button>
+    </nav>
+    <!-- Error message container -->
+    <p id="error-message">Something went wrong!</p>
     
+    <!-- Main container for pokemon list or pokemon details-->
+    <div id="main-container"></div>
 </body>
 </html>
