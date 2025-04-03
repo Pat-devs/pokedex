@@ -13,9 +13,6 @@ async function getData(url) {
     return data
 }
 
-//let myData = getData(apiUrl)
-//console.log(myData)
-
 // get html elements
 const mainContainerEl = document.getElementById("main-container")
 
@@ -99,3 +96,14 @@ async function displayPokemonList(pokemonListPromise) {
 
 
 displayPokemonList(getData(apiUrl))
+
+
+
+// To get search to work, is a bit more tricky...
+// 1. Check if user typed correct input
+// 2. Call getData() and ask it to give us list of ALL pokemons, not just the first 10.
+// 2a): make a request to https://pokeapi.co/api/v2/pokemon to read the "count" property
+// 2b): use the count property to set the "limit" value in the request to https://pokeapi.co/api/v2/pokemon?limit=...
+
+// 3. Store the huge list of pokemons in a variable, so that we can then use array methods like .filter to limit the list to match users search term
+// 4. display the results of previous point on the page.
